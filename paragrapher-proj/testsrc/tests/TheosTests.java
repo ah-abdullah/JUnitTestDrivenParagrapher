@@ -35,6 +35,21 @@ public class TheosTests {
 		assertArrayEquals(expected, result);
 	}
 	
+//	@Test
+//	public void test_Test () {
+//		out.setWidth( 5 ) ;
+//		out.addWord( new String[] { "This", "graph" } );
+//		out.ship();
+//		String[] expected = new String[] {
+//				//     1234567
+//				"<p>",
+//				"<line>This</line>",
+//				"<line>graph</line>",
+//				"</p>" } ;
+//		String[] result = dest.getResult() ;
+//		assertArrayEquals(expected, result);
+//	}
+	
 	@Test
 	public void test () {
 		out.setWidth( 7 ) ;
@@ -47,6 +62,7 @@ public class TheosTests {
 				//     1234567
 				"<p>",
 				"<line>This is</line>",
+//				"<line>a</line>",
 				"<line>a para-</line>",
 				"<line>graph.</line>",
 				"</p>"} ;
