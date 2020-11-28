@@ -1,6 +1,0 @@
-INDEX VERSION 1.131+C:\Users\Abdullah\Desktop\Term6\ECE-6400-001 Software Dev Practice\Labs\Lab2\.metadata\.plugins\org.eclipse.jdt.core
-1551189084.index
-1989069775.index
-139887317.index
-1579538062.index
-1704372099.index
