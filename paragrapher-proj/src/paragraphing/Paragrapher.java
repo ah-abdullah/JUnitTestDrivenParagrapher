@@ -52,50 +52,45 @@ public class Paragrapher implements ParagrapherI {
 			
 			for (int i = 1; i < parts.length; ++i)
 			{
-				if ((str + " " + parts[i]).length() <= this.width) {
-					str = str + " " + parts[i];
+				if ((str + parts[i]).length() < this.width) {
+					str = str + parts[i];
 				} else {
-					if ((str + " ").length() > this.width) {
-						lines.add("<line>" + str + "</line>");
-						str = parts[i];
-					} else
-					{
-						int allowedLength = this.width - (str + " ").length();
-						String subString1 = parts[i].substring(0, allowedLength);
-						String subString2 = parts[i].substring(allowedLength);
-						if (subString1.isEmpty()) {
-							lines.add("<line>" + str + "-" + "</line>");
-							str = subString2;
-						} else {
-							str = str +  subString1;
-							lines.add("<line>" + str + "-" + "</line>");
-							str = subString2;
-						}
-					}
+					lines.add("<line>" + str + "-" + "</line>");
+					str = parts[i];
 				}
 			}
-		} else {
-			for( String part :  parts ) { 
-				if ((str + " " + part).length() <= this.width) {
-					str = str + " " + part;
-
-				} else {
-					if ((str + " ").length() > this.width) {
-						lines.add("<line>" + str + "</line>");
-						str = part;
-					} else 
-					{
-						int allowedLength = this.width - (str + " ").length();
-						String subString1 = part.substring(0, allowedLength);
-						String subString2 = part.substring(allowedLength);
-						if (subString1.isEmpty()) {
-							lines.add("<line>" + str + "-" + "</line>");
-							str = subString2;
-						} else {
-							str = str + subString1;
-							lines.add("<line>" + str + "-" + "</line>");
-							str = subString2;
+		} else {			
+			for (int i = 0; i < parts.length; ++i)
+			{
+				if (i == 0) {
+					if ((str + " " + parts[i]).length() <= this.width) {
+						str = str + " " + parts[i];
+					}
+					else {
+						if ((str + " ").length() > this.width) {
+							lines.add("<line>" + str + "</line>");
+							str = parts[i];
+						} else
+						{
+							int allowedLength = this.width - (str + " ").length();
+							String subString1 = parts[i].substring(0, allowedLength);
+							String subString2 = parts[i].substring(allowedLength);
+							if (subString1.isEmpty()) {
+								lines.add("<line>" + str + "-" + "</line>");
+								str = subString2;
+							} else {
+								str = str +  subString1;
+								lines.add("<line>" + str + "-" + "</line>");
+								str = subString2;
+							}
 						}
+					}
+				} else {
+					if ((str + parts[i]).length() < this.width) {
+						str = str + parts[i];
+					} else {
+						lines.add("<line>" + str + "-" + "</line>");
+						str = parts[i];
 					}
 				}
 			}

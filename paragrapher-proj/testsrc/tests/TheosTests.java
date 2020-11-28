@@ -62,7 +62,6 @@ public class TheosTests {
 				//     1234567
 				"<p>",
 				"<line>This is</line>",
-//				"<line>a</line>",
 				"<line>a para-</line>",
 				"<line>graph.</line>",
 				"</p>"} ;
