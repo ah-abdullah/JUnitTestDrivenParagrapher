@@ -36,62 +36,16 @@ public class Paragrapher implements ParagrapherI {
 			lines.add("<p>"); // add the initial <p> line
 		}
 		
-		if (str.isEmpty()) { // nothing added to lines yet
-			if (parts[0].length() <= this.width) { // check if first word length is <= this.width
-				str = parts[0]; // first word length is <= this.width, so can place the whole word in a line
-			}
-			else { // first word length is > this.width, so need to cut it up to not including width length since need to add hyphen at the end of the cut string
-				//, and then finish the line and add it to ArrayList<String> lines
-				String subString1 = parts[0].substring(0, this.width); // subString1 = up to not including width length
-				String subString2 = parts[0].substring(this.width); // subString2 = remaining part of the cut word
-				str = subString1; // so can place the cut word in a line
-				lines.add("<line>" + str + "-" + "</line>"); // finish the line by adding hyphen at the end of the cut word
-				str = subString2; // str now have remaining part of the cut word, which will be on the next line
-			}
-			
-			for (int i = 1; i < parts.length; ++i) // for when more than 1 word is provided
-			{
-				// str will be concatenated together with current word and be placed in a line only if it is < this.width
-				if ((str + parts[i]).length() < this.width) {
-					str = str + parts[i]; // so can place the concatenated str in line
-				} else { // current word will not be concatenated with str, the line would be finished with the not concatenated str + hyphen 
-					lines.add("<line>" + str + "-" + "</line>"); // finish the line by adding hyphen at the end of the not concatenated str
-					str = parts[i]; // str now have current word, which will be on the next line
-				}
-			}
-		} else { // some str already placed on a line			 
+		if (parts.length == 1)
+		{
+			addWord(parts[0]);
+		}		
+		else { // some str already placed on a line			 
 			for (int i = 0; i < parts.length; ++i)
 			{
 				// first word being passed need to have a space between the previous word (str)
 				if (i == 0) {
-					if ((str + " " + parts[i]).length() <= this.width) {
-						str = str + " " + parts[i]; // can place concatenated str in a line
-					}
-					else { // width does not allow the current first word to be concatenated with a space inbetween
-						if ((str + " ").length() > this.width) { // check if adding space between the previous word (str) exceeds the width
-							lines.add("<line>" + str + "</line>"); // exceeds width, so simply finish line with just the previous word (str) 
-							str = parts[i]; // str now have the first word
-						} else {  // exceeds the width
-							int allowedLength = this.width - (str + " ").length(); // allowedLength will be >= 0
-							if (allowedLength == 0) { // can't concatenated previous word (str) with first word
-								lines.add("<line>" + str + "-" + "</line>"); // the line would be finished with the not concatenated str + hyphen 
-								str = parts[i]; // // str now have first word, which will be on the next line
-							} else { // need to cut first word up to not including allowedLength - 1 since need to add hyphen at the end of the cut str
-								//, and then finish the line and add it to ArrayList<String> lines
-								String subString1 = parts[i].substring(0, allowedLength - 1); // subString1 = up to not including allowedLength - 1
-								String subString2 = parts[i].substring(allowedLength - 1);  // subString2 = remaining part of the cut first word
-								
-								if (subString1.isEmpty()) {
-									lines.add("<line>" + str + "</line>");
-									str = subString2;
-								} else {
-									str = str + " " +  subString1; // cut first word concatenated with str with a space inbetween
-									lines.add("<line>" + str + "-" + "</line>"); // finish the line by adding hyphen at the end of the not concatenated str
-									str = subString2; // str now have remaining part of the cut first word, which will be on the next line
-								}
-							}
-						}
-					}
+					addWord(parts[i]);
 				} else {
 					// str will be concatenated together with current word and be placed in a line only if it is < this.width
 					if ((str + parts[i]).length() < this.width) {
@@ -110,7 +64,50 @@ public class Paragrapher implements ParagrapherI {
 	 */
 	@Override
 	public void addWord(String word) {
+		if (str.isEmpty()) { // nothing added to lines yet
+			if (word.length() <= this.width) { // check if first word length is <= this.width
+				str = word; // first word length is <= this.width, so can place the whole word in a line
+			}
+			else { // first word length is > this.width, so need to cut it up to not including width length since need to add hyphen at the end of the cut string
+				//, and then finish the line and add it to ArrayList<String> lines
+				String subString1 = word.substring(0, this.width); // subString1 = up to not including width length
+				String subString2 = word.substring(this.width); // subString2 = remaining part of the cut word
+				str = subString1; // so can place the cut word in a line
+				lines.add("<line>" + str + "-" + "</line>"); // finish the line by adding hyphen at the end of the cut word
+				str = subString2; // str now have remaining part of the cut word, which will be on the next line
+			}
+		} else {
+			if ((str + " " + word).length() <= this.width) {
+				str = str + " " + word; // can place concatenated str in a line
+			}
+			else { // width does not allow the current first word to be concatenated with a space inbetween
+				if ((str + " ").length() > this.width) { // check if adding space between the previous word (str) exceeds the width
+					lines.add("<line>" + str + "</line>"); // exceeds width, so simply finish line with just the previous word (str) 
+					str = word; // str now have the first word
+				} else {  // exceeds the width
+					int allowedLength = this.width - (str + " ").length(); // allowedLength will be >= 0
+					if (allowedLength == 0) { // can't concatenated previous word (str) with first word
+						lines.add("<line>" + str + "-" + "</line>"); // the line would be finished with the not concatenated str + hyphen 
+						str = word; // // str now have first word, which will be on the next line
+					} else { // need to cut first word up to not including allowedLength - 1 since need to add hyphen at the end of the cut str
+						//, and then finish the line and add it to ArrayList<String> lines
+						String subString1 = word.substring(0, allowedLength - 1); // subString1 = up to not including allowedLength - 1
+						String subString2 = word.substring(allowedLength - 1);  // subString2 = remaining part of the cut first word
+						
+						if (subString1.isEmpty()) {
+							lines.add("<line>" + str + "</line>");
+							str = subString2;
+						} else {
+							str = str + " " +  subString1; // cut first word concatenated with str with a space inbetween
+							lines.add("<line>" + str + "-" + "</line>"); // finish the line by adding hyphen at the end of the not concatenated str
+							str = subString2; // str now have remaining part of the cut first word, which will be on the next line
+						}
+					}
+				}
+			}
+		}
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see paragraphing.ParagrapherI#ship()
