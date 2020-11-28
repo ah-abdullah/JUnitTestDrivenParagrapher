@@ -2,8 +2,6 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,21 +32,6 @@ public class TheosTests {
 		String[] result = dest.getResult() ;
 		assertArrayEquals(expected, result);
 	}
-	
-//	@Test
-//	public void test_Test () {
-//		out.setWidth( 5 ) ;
-//		out.addWord( new String[] { "This", "graph" } );
-//		out.ship();
-//		String[] expected = new String[] {
-//				//     1234567
-//				"<p>",
-//				"<line>This</line>",
-//				"<line>graph</line>",
-//				"</p>" } ;
-//		String[] result = dest.getResult() ;
-//		assertArrayEquals(expected, result);
-//	}
 	
 	@Test
 	public void test () {
@@ -83,6 +66,26 @@ public class TheosTests {
 				"<line>I am a</line>",
 				"<line>para-</line>",
 				"<line>graph.</line>",
+				"</p>"} ;
+		String[] result = dest.getResult() ;
+		assertArrayEquals(expected, result);
+	}
+	
+	
+	@Test
+	public void testSuperman () {
+		out.setWidth( 10 ) ;
+		out.addWord( new String[] { "We" } );
+		out.addWord( new String[] { "can" } );
+		out.addWord( new String[] { "see" } );
+		out.addWord( new String[] { "Super", "man" } );
+		out.addWord( new String[] { "flying!" } );
+		out.ship();
+		String[] expected = new String[] {
+				"<p>",
+				"<line>We can see</line>",
+				"<line>Superman</line>",
+				"<line>flying!</line>",
 				"</p>"} ;
 		String[] result = dest.getResult() ;
 		assertArrayEquals(expected, result);

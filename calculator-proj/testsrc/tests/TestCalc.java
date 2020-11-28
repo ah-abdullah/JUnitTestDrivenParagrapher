@@ -1,3 +1,5 @@
+package tests;
+
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -40,7 +42,7 @@ public class TestCalc {
                  { "15-5=", 		"10.0000" },		// SUBTRACT test
                  { "5-15=", 		"-10.0000" },		// SUBTRACT test
                  { "33*10=",		"330.0000" },		// MULTIPLY test
-                 { "42/20=",		"2.1000" }, 		// DIVIDE test fails, bug detected in division, fix division logic in Model.java, retest which then succeeds 
+                 { "42/20=",		"2.1000" }, 		// DIVIDE test fails, bug detected in division, fix division logic in Model.java, re-test which then succeeds 
                  { "3+4*5=", 		"23.0000" },		// precedence test
                  { "(3+4)*5=", 		"35.0000" },		// LEFT_PAR precedence test
                  { "c", 			"0.0000" },			// CLEAR test
@@ -49,7 +51,7 @@ public class TestCalc {
                  { "(-75)n=", 		"75.0000" },		// NEGATE test
                  { "20/40=",		"0.5000" },			// DIVIDE test
                  { "20/0=",			"+ oo" },			// DIVIDE by 0 test
-                 { "(-20)/0=",		"- oo" }			// DIVIDE by 0 test fails, bug detected in calculating negative infinity, fix logic in Model.java, retest which then succeeds
+                 { "(-20)/0=",		"- oo" }			// DIVIDE by 0 test fails, bug detected in calculating negative infinity, fix logic in Model.java, re-test which then succeeds
            });
     }
     
